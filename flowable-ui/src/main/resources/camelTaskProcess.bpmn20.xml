@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:flowable="http://flowable.org/bpmn"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+
+    <process id="camelTaskProcess" name="Camel Task Process" isExecutable="true">
+        <!-- Start Event -->
+        <startEvent id="startEvent" name="Start"/>
+
+        <!-- Camel Task -->
+        <serviceTask id="camelTask" name="Camel Task" flowable:type="camel">
+            <extensionElements>
+                <flowable:field name="camelEndpoint">
+                    <flowable:string><![CDATA[direct:flowableCamelTask]]></flowable:string>
+                </flowable:field>
+            </extensionElements>
+        </serviceTask>
+
+        <!-- End Event -->
+        <endEvent id="endEvent" name="End"/>
+
+        <!-- Sequence Flows -->
+        <sequenceFlow id="flow1" sourceRef="startEvent" targetRef="camelTask"/>
+        <sequenceFlow id="flow2" sourceRef="camelTask" targetRef="endEvent"/>
+    </process>
+</definitions>
